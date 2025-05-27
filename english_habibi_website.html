@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>English Habibi</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 0; }
+  header { background: #4a90e2; color: white; padding: 1em; text-align: center; }
+  main { max-width: 900px; margin: 2em auto; background: white; padding: 2em; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  section { margin-bottom: 2em; }
+  .upload-section { border: 2px dashed #4a90e2; padding: 1em; text-align: center; cursor: pointer; }
+  input[type="file"] { display: none; }
+  .files-list { list-style: none; padding: 0; }
+  .files-list li { margin: 0.5em 0; }
+  img { max-width: 150px; margin: 0.5em; }
+</style>
+</head>
+<body>
+<header>
+  <h1>English Habibi</h1>
+  <p>Your public place for study notes and animations</p>
+</header>
+<main>
+  <section>
+    <h2>Upload Files</h2>
+    <label class="upload-section" for="fileUpload">Click here to select notes or animation photos</label>
+    <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" />
+    <ul class="files-list" id="filesList"></ul>
+  </section>
+  <section>
+    <h2>Uploaded Files Preview</h2>
+    <div id="previewArea"></div>
+  </section>
+</main>
+<script>
+  const fileInput = document.getElementById('fileUpload');
+  const filesList = document.getElementById('filesList');
+  const previewArea = document.getElementById('previewArea');
+
+  fileInput.addEventListener('change', () => {
+    filesList.innerHTML = '';
+    previewArea.innerHTML = '';
+    const files = fileInput.files;
+    for(let i=0; i < files.length; i++) {
+      const file = files[i];
+      const li = document.createElement('li');
+      li.textContent = file.name;
+      filesList.appendChild(li);
+
+      if(file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.alt = file.name;
+        previewArea.appendChild(img);
+      }
+    }
+  });
+</script>
+</body>
+</html>
